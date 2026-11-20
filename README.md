@@ -112,16 +112,7 @@ This gives us an interesting comparison between the two approaches: one tries to
 
 Both results are displayed separately for each date.
 
-## Technologies Used
 
-- C++
-- Data Structures and Algorithms
-- VS Code
-- G++ Compiler
-
-## How to Run
-
-The project is a menu-driven C++ application. After running it, the user can choose from different options to add surgeries, view patient details, check doctor schedules, display the final OT schedule or view the conflict graph.
 
 ## Future Improvements
 
@@ -133,12 +124,3 @@ There are still a few things that could be added to make the system more useful:
 - Handling unexpected delays and changes in surgery timings.
 - Considering more hospital-related constraints while allocating resources.
 
-## Project Information
-
-**Project:** Operation Theatre Scheduling System
-
-**Language:** C++
-
-**Course:** Data Structures and Algorithms
-
-**Domain:** Healthcare Management
