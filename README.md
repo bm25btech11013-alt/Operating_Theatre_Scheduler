@@ -122,22 +122,7 @@ Both Greedy and Dynamic Programming results are displayed separately for each da
 - **Compiler:** G++
 - **IDE:** Visual Studio Code
 
-## How to Run
 
-The project can be compiled and executed using any C++ compiler that supports C++11 or later.
-
-The application uses a menu-driven interface through which users can add surgeries, view patient details, check doctor schedules, display the final OT schedule and view the conflict graph.
-
-## Main Menu
-
-The system provides the following options:
-
-1. Add Patient / Surgery
-2. Access Patient Details
-3. Access Doctor's Schedule
-4. Display Final OT Schedule
-5. Display Conflict Graph
-6. Exit
 
 ## Future Scope
 
@@ -149,12 +134,4 @@ There are several improvements that can be made to the project:
 - Handling unexpected delays and changes in surgery timings.
 - Improving the scheduling process by considering additional hospital constraints.
 
-## Project Details
 
-**Project Name:** Operation Theatre Scheduling System
-
-**Programming Language:** C++
-
-**Domain:** Healthcare Management
-
-**Course:** Data Structures and Algorithms# Operating_Theatre_Scheduler
