@@ -1,137 +1,144 @@
-
+# Operation Theatre Scheduling System
 
 ## About the Project
 
-Scheduling surgeries in a hospital involves more than just deciding a date and time. Doctors, operating theatres and medical equipment all need to be available at the same time. When multiple surgeries are planned for the same day, managing these resources without conflicts becomes a challenge.
+In a hospital, scheduling surgeries can get complicated when multiple patients need to undergo surgery on the same day. A doctor might already be occupied, an operating theatre might be in use, or the required medical equipment might not be available.
 
-We developed this project using C++ and concepts from Data Structures and Algorithms to handle this problem.
+We wanted to work on this problem and build a simple system that could handle these scheduling requirements.
 
-The system allows users to register patients and their surgeries, assign doctors based on specialization and availability, select the required medical equipment and allocate operating theatres. It also identifies overlapping surgeries and ensures that they are assigned to different operating theatres.
+Our project, **Operation Theatre Scheduling System**, is developed using C++. It allows us to add patients and their surgery details, assign doctors based on their specialization and availability, select the required equipment and allocate operating theatres without overlapping schedules.
 
-Another part of the project focuses on comparing different scheduling approaches using Greedy Algorithms and Dynamic Programming, taking both the number and priority of surgeries into consideration.
+We have also included different scheduling algorithms to see how Greedy and Dynamic Programming approaches work when the priority and number of surgeries are considered.
 
 ## Features
 
-- **Patient and Surgery Registration:** Add patient details along with the surgery name, date, starting time, duration and priority.
-- **Automatic Doctor Allocation:** Assign doctors based on their specialization and check their availability before assigning them.
-- **Equipment Management:** Select the required medical equipment and check whether sufficient units are available during the selected time slot.
-- **Operating Theatre Allocation:** Automatically assign operating theatres while avoiding conflicts between overlapping surgeries.
-- **Patient Details:** Retrieve patient and surgery information using a unique patient ID.
-- **Doctor Schedule:** View all surgeries assigned to a particular doctor in chronological order.
-- **Final OT Schedule:** Display all scheduled surgeries separately for each operating theatre.
-- **Surgery Status:** Display whether a surgery is yet to be performed, ongoing or completed.
-- **Conflict Graph:** Display connections between surgeries that overlap in time.
-- **Algorithm Analysis:** Compare Greedy and Dynamic Programming approaches for scheduling surgeries.
+The system currently supports the following operations:
+
+- Adding patients along with their surgery details, date, time, duration and priority.
+- Assigning doctors automatically based on their specialization and availability.
+- Checking whether the required medical equipment is available during the selected time slot.
+- Allocating operating theatres based on surgery timings.
+- Viewing patient details using their unique patient ID.
+- Checking the schedule of individual doctors.
+- Displaying the final schedule of all operating theatres.
+- Checking the status of a surgery (To be done, Ongoing or Completed).
+- Viewing a conflict graph that shows which surgeries overlap.
+- Comparing different scheduling algorithms based on the number and priority of surgeries.
 
 ## Data Structures Used
 
-An important part of this project was deciding which data structures would be suitable for handling different types of information and scheduling requirements.
+While working on this project, we used different data structures depending on what we needed to store or manage.
 
 ### 1. Structures (struct)
 
-We used structures to keep related information together.
+We used structures to store information about doctors, equipment and surgeries.
 
-- **Doctor:** Stores the doctor's ID, name and specialization.
-- **Equipment:** Stores the equipment ID, name and number of available units.
-- **Surgery:** Stores patient details, surgery timings, assigned doctor, priority, selected equipment and operating theatre.
+For example, the Doctor structure stores the doctor's ID, name and specialization. Similarly, the Surgery structure contains details such as patient name, procedure, date, timings, priority, assigned doctor, selected equipment and OT number.
 
-This makes it easier to organize and access information related to each entity.
+This helped us keep related information together instead of managing each detail separately.
 
 ### 2. Vectors
 
-Vectors are used to maintain the lists of doctors, medical equipment and scheduled surgeries.
+We used vectors to store the lists of doctors, equipment and scheduled surgeries.
 
-We chose vectors because the number of records can change as new surgeries are added. They also make it easy to traverse records, search for information and sort schedules.
+Since new surgeries can be added at any time, we needed a data structure that could grow as more records were added. Vectors also made it easier to go through the records, search for information and sort the schedules.
 
 ### 3. Graphs (Adjacency List)
 
-Graphs are used to represent conflicts between surgeries.
+One of the main problems in surgery scheduling is identifying overlapping surgeries.
 
-Each surgery is treated as a vertex. If two surgeries overlap in time, an edge is created between them. We use an adjacency list to store these connections.
+To handle this, we represented each surgery as a vertex in a graph. Whenever two surgeries overlap in time, we connect them with an edge.
 
-This helps identify which surgeries cannot be assigned to the same operating theatre.
+We used an adjacency list to store these connections. This gives us a way to identify which surgeries have conflicts with each other.
 
 ### 4. Graph Coloring
 
-Graph coloring is used for operating theatre allocation.
+After creating the conflict graph, we used graph coloring to assign operating theatres.
 
-Since overlapping surgeries are connected by an edge, they must be assigned different colours. Each colour represents an operating theatre.
+The idea is that two connected vertices cannot have the same colour. In our project, each colour represents an operating theatre.
 
-This helps allocate theatres while avoiding conflicts between surgeries that take place at overlapping times.
+So, if two surgeries overlap, they are assigned different theatres. We use a greedy coloring approach and currently support up to 12 operating theatres.
 
 ### 5. Maps
 
-We use a map to group surgeries according to their dates.
+We used a map to group surgeries according to their dates.
 
-This is useful during algorithm analysis because scheduling calculations can be performed separately for each date instead of considering all surgeries together.
+This was especially useful during algorithm analysis because we wanted to compare scheduling results separately for each date rather than mixing surgeries from different days.
 
 ### 6. Sorting
 
-Sorting is used at different stages of the project.
+Sorting is used in different parts of the project.
 
-- Surgeries are arranged by date and starting time when displaying doctor schedules and the final OT schedule.
-- For Activity Selection and Weighted Interval Scheduling, surgeries are sorted according to their finishing times.
+For displaying schedules, we arrange surgeries according to their dates and starting times.
 
-This helps process surgeries in the required order for scheduling and analysis.
+For the Greedy and Dynamic Programming algorithms, we sort surgeries according to their finishing times. This is necessary for the scheduling approaches we have implemented.
 
 ## Algorithms Used
 
+Apart from the data structures, we implemented three main algorithmic approaches.
+
 ### 1. Graph Coloring
 
-We use a graph coloring approach to allocate operating theatres.
+We use graph coloring for allocating operating theatres.
 
-First, a conflict graph is created in which vertices represent surgeries and edges represent overlapping time slots.
+First, we create a graph where each vertex represents a surgery and an edge represents a timing conflict. We then process the surgeries in chronological order and assign the first available colour that is not being used by an already-colored neighbouring vertex.
 
-The surgeries are processed in chronological order. Each surgery is assigned the first available colour that is not used by its already-colored neighbouring vertices.
-
-Each colour corresponds to an operating theatre. The system currently supports a maximum of 12 operating theatres.
+Each colour corresponds to an operating theatre. This ensures that overlapping surgeries are not assigned to the same theatre.
 
 ### 2. Greedy Algorithm – Activity Selection
 
-This algorithm is used to find the maximum number of surgeries that can be performed without overlapping in a single operating theatre.
+Here, our aim is to find the maximum number of surgeries that can be performed without overlapping in a single operating theatre.
 
-Surgeries are sorted according to their finishing times. The algorithm selects a surgery if its starting time is greater than or equal to the finishing time of the previously selected surgery.
+We first sort the surgeries according to their finishing times. Then we select a surgery if it starts after or exactly when the previously selected surgery finishes.
 
-The main idea is to select surgeries that finish earlier so that more surgeries can fit into the available time.
+The idea is to select surgeries that finish earlier so that more surgeries can fit into the available time.
 
 ### 3. Dynamic Programming – Weighted Interval Scheduling
 
-Unlike Activity Selection, this approach also considers the priority of surgeries.
+We also wanted to consider the priority of surgeries instead of only looking at how many surgeries could be performed.
 
-Each priority is assigned a weight:
+For this, we implemented Weighted Interval Scheduling using Dynamic Programming.
 
-| Priority | Weight |
-|---|---:|
-| Emergency | 100 |
-| High | 90 |
-| Medium | 60 |
-| Low | 30 |
+We assigned different weights to the priority levels:
+
+- Emergency – 100
+- High – 90
+- Medium – 60
+- Low – 30
 
 The algorithm finds a combination of non-overlapping surgeries that gives the maximum total priority weight.
 
-This allows us to compare two different scheduling objectives:
-- Maximizing the number of surgeries.
-- Maximizing the total priority weight of selected surgeries.
+This gives us an interesting comparison between the two approaches: one tries to schedule the maximum number of surgeries, while the other tries to maximize the total priority weight.
 
-Both Greedy and Dynamic Programming results are displayed separately for each date.
+Both results are displayed separately for each date.
 
 ## Technologies Used
 
-- **Programming Language:** C++
-- **Concepts:** Data Structures and Algorithms
-- **Compiler:** G++
-- **IDE:** Visual Studio Code
+- C++
+- Data Structures and Algorithms
+- VS Code
+- G++ Compiler
 
+## How to Run
 
+The project is a menu-driven C++ application. After running it, the user can choose from different options to add surgeries, view patient details, check doctor schedules, display the final OT schedule or view the conflict graph.
 
-## Future Scope
+## Future Improvements
 
-There are several improvements that can be made to the project:
+There are still a few things that could be added to make the system more useful:
 
-- Adding a database to store patient and surgery records permanently.
-- Developing a graphical interface to make the system easier to use.
-- Allowing users to modify or cancel scheduled surgeries.
+- Connecting a database so that patient and surgery details are saved even after the program is closed.
+- Adding a graphical interface instead of using only the console.
+- Providing options to modify or cancel an already scheduled surgery.
 - Handling unexpected delays and changes in surgery timings.
-- Improving the scheduling process by considering additional hospital constraints.
+- Considering more hospital-related constraints while allocating resources.
 
+## Project Information
 
+**Project:** Operation Theatre Scheduling System
+
+**Language:** C++
+
+**Course:** Data Structures and Algorithms
+
+**Domain:** Healthcare Management
