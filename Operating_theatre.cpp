@@ -565,9 +565,8 @@ void showPatientDetails() {
 
             cout << "Equipment: ";
 
-            if (s.equipment.empty()) {
+            if (s.equipment.empty())
                 cout << "None";
-            }
 
             for (int i = 0; i < s.equipment.size(); i++) {
                 cout << equipmentList[
@@ -761,8 +760,6 @@ void showFinalSchedule() {
             cout << "Status: " << getStatus(s) << "\n";
         }
     }
-
-    showAlgorithmAnalysis();
 }
 
 void showGraph() {
